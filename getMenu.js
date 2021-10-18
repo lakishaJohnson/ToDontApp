@@ -2,22 +2,33 @@ const chalk = require("chalk");
 const todos = require("./toDos");
 
 function getMenu() {
-    let number = 1; 
-    //{number++} OR {i + 1}
+    let number = 1;
+  //console.log(getMenu());
+
   const menu = `${chalk.blue.bold(
     "Choose a todo to toggle its completeness (by entering its number) or choose an option at the bottom (by letter):"
   )}
-    ${todos.map((todo) => `${number++}. ${todo.text}`).join("\n")}
-    (l) View all lists.
-    (n) Add new todo.
-    (q) Quit
-    `;
+    ${todos
+      .map((todo) => {
+        //OR (todo, i)
+        let symbol = "❌";
+        if (todo.isComplete) {
+          symbol = "✅";
+        }
+        return `${number++}. ${symbol} ${todo.text}`;
+        //{number++} OR {i + 1}
+      })
+      .join("\n")}
+      (e) Edit todo.
+      (n) Add new todo.
+      (q) Quit
+      `;
+      
+      //console.log("I'm in here");
   return menu;
 }
-console.log(getMenu());
 
 module.exports = getMenu;
-
 //make function that returns below menu
 
 // const menu = `Choose a todo to toggle its completeness (by entering its number) or choose an option at the bottom (by letter):
