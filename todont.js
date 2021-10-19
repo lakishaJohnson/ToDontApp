@@ -5,34 +5,27 @@ const chalk = require("chalk");
 const getMenu = require("./getMenu");
 //IF MAKE TODO IS CALLED, AN OBJECT IS RETURNED
 // const makeTodo = require("./makeTodo");
-// const toDos = require("./toDos")
 const editTodo = require("./editTodo");
+const toDos = require("./toDos")
 
 //WHY KEEP DATA LOGIC & INTERFACE SEPARATE???
 //1. ITS EASIER TO FIND THINGS
 //2. SO I CAN USE THE SAME LOGIC W/DIFFERENT INTERFACES
 
 console.clear();
+//A CONSOLE LOG WAITING FOR USERINPUT AND RETURNS TO ME THAT INPUT/RESPONSE
 let response = readlineSync.question(getMenu()).toLowerCase();
 
 while (response !== "q") {
-  if (response === "e") {
-    editTodo();
-    // const editMenu = `Which todo do you choose?
-    // ${todos
-    //     .map((todo) => {
-    //       let symbol = "❌";
-    //       if (todo.isComplete) {
-    //         symbol = "✅";
-    //       }
-    //       return `${number++}. ${symbol} ${todo.text}`;
-    //     })
-    //     .join("\n")}`
-    // const editResponse = readlineSync.question(editMenu)
-    // console.log(editResponse)
+  if (isNaN(response) === false) {
+    const todo = toDos[response - 1]
+    // todo.isComplete = !todo.isComplete;
+    editTodo(todo)
+    // console.log(todo)
   } else {
     console.log(chalk.red.bold(`${response} not a valid input.`));
   }
+  //ASK THE QUESTION AGAIN
   response = readlineSync.question(getMenu());
   console.clear();
 }
